@@ -1,3 +1,4 @@
+/* Comandos de DDL */
 /* Criar o banco de dados*/
 create database dbescola;
 
@@ -28,3 +29,21 @@ CREATE TABLE avaliacao(
 alter table avaliacao
 add matricula int not null after resultado,
 add foreign key (matricula) references aluno(matricula);
+
+/*Remove elementos da estrutura da table*/
+alter table avaliacao
+drop column turma;
+
+/* remove a tabela do banco de dados*/
+drop table avaliacao;
+
+
+/* Comandos de DML*/
+/*Adicionar registro no banco de dados*/
+INSERT into aluno (nome, email, senha) 
+value("Fabiano Moreira", "fabianomoreira@email.com", "123456");
+
+INSERT into aluno (nome, email, senha) 
+value
+("Ana Silva", "anasilva@email.com", "123456"),
+("Pedro Silva", "pedrosilva@email.com", "123456");
