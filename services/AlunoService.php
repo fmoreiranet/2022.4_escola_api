@@ -1,6 +1,5 @@
 <?php
 include_once("DAO.php");
-// include_once("../model/Aluno.php");
 
 class AlunoService
 {
