@@ -7,9 +7,6 @@ class AlunoController
     function postAluno()
     {
         try {
-            if (!router("post", "aluno"))
-                return;
-
             //file_get_contents: Pega dados do body contidos no request
             $body = file_get_contents('php://input');
 
@@ -36,27 +33,21 @@ class AlunoController
     function getAluno()
     {
         try {
-            if (!router("get", "aluno"))
-                return;
-            echo "Get Aluno<br>";
+            echo "Get Aluno\n";
         } catch (Exception $e) {
         }
     }
     function putAluno()
     {
         try {
-            if (!router("put", "aluno"))
-                return;
-            echo "Update Aluno<br>";
+            echo "Update Aluno\n";
         } catch (Exception $e) {
         }
     }
     function deleteAluno()
     {
         try {
-            if (!router("delete", "aluno"))
-                return;
-            echo "Delete Aluno<br>";
+            echo "Delete Aluno\n";
         } catch (Exception $e) {
         }
     }
