@@ -18,4 +18,19 @@ class AlunoService
             throw new Exception("Erro ao cadastrar!" . $e->getMessage());
         }
     }
+
+    function getAll()
+    {
+        try {
+            $sql = "SELECT matricula, nome, email, data_nasc FROM aluno";
+            $dao = new DAO;
+            $conn = $dao->connect();
+            $stman = $conn->prepare($sql);
+            $stman->execute();
+            $result = $stman->fetchAll();
+            return $result;
+        } catch (Exception $e) {
+            throw new Exception("Erro ao listar os dados!" . $e->getMessage());
+        }
+    }
 }

@@ -33,10 +33,15 @@ class AlunoController
     function getAluno()
     {
         try {
-            echo "Get Aluno\n";
+            $alunoService = new AlunoService();
+            $result = $alunoService->getAll();
+            echo json_encode(array("message" => "lista dados", "dados" => $result));
         } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(array("error" => $e->getMessage()));
         }
     }
+
     function putAluno()
     {
         try {
@@ -44,6 +49,7 @@ class AlunoController
         } catch (Exception $e) {
         }
     }
+
     function deleteAluno()
     {
         try {
