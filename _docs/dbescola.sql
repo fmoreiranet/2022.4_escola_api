@@ -26,24 +26,64 @@ CREATE TABLE avaliacao(
 );
 
 /* Altera estrutura da tabela*/
-alter table avaliacao
-add matricula int not null after resultado,
-add foreign key (matricula) references aluno(matricula);
+alter table
+    avaliacao
+add
+    matricula int not null
+after
+    resultado,
+add
+    foreign key (matricula) references aluno(matricula);
 
 /*Remove elementos da estrutura da table*/
-alter table avaliacao
-drop column turma;
+alter table
+    avaliacao drop column turma;
+
+ALTER TABLE
+    aluno
+ADD
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+AFTER
+    data_nasc;
 
 /* remove a tabela do banco de dados*/
 drop table avaliacao;
 
-
 /* Comandos de DML*/
 /*Adicionar registro no banco de dados*/
-INSERT into aluno (nome, email, senha) 
-value("Fabiano Moreira", "fabianomoreira@email.com", "123456");
+INSERT into
+    aluno (nome, email, senha) value(
+        "Fabiano Moreira",
+        "fabianomoreira@email.com",
+        "123456"
+    );
 
-INSERT into aluno (nome, email, senha) 
-value
-("Ana Silva", "anasilva@email.com", "123456"),
-("Pedro Silva", "pedrosilva@email.com", "123456");
+INSERT into
+    aluno (nome, email, senha) value ("Ana Silva", "anasilva@email.com", "123456"),
+    ("Pedro Silva", "pedrosilva@email.com", "123456");
+
+/* Seleciona dados no banco de dados */
+SELECT
+    matricula,
+    nome,
+    email,
+    data_nasc
+FROM
+    aluno;
+
+/* Atualiza dados no banco de dados */
+UPDATE
+    aluno
+SET
+    nome = "Carlos Cunha",
+    email = "carlos@email.com"
+WHERE
+    matricula = 3;
+
+UPDATE
+    aluno
+SET
+    nome = "Maria das Dores",
+    email = "mariadores@email.com"
+WHERE
+    matricula = 4;

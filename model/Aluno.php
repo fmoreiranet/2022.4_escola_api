@@ -20,4 +20,13 @@ class Aluno
             throw new Exception("Senha em branco!");
         }
     }
+
+    function mount(Object $dados)
+    {
+        $this->matricula = $dados->matricula;
+        $this->nome = $dados->nome;
+        $this->email = $dados->email;
+        $this->senha = $dados->senha;
+        $this->data_nasc = $dados->data_nasc;
+    }
 }

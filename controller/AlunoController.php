@@ -14,16 +14,19 @@ class AlunoController
             $dadosRequest = json_decode($body);
 
             $aluno = new Aluno();
-            $aluno->nome = $dadosRequest->nome;
-            $aluno->email = $dadosRequest->email;
-            $aluno->senha = $dadosRequest->senha;
+            $aluno->mount($dadosRequest);
 
             //Valida o aluno no sistema
             $aluno->valid();
 
             $alunoService = new AlunoService();
-            $alunoService->add($aluno);
-            echo json_encode(array("message" => "Cadastrado!"));
+            if ($aluno->matricula !== null || $aluno->matricula != "") {
+                $alunoService->update($aluno);
+                echo json_encode(array("message" => "Atualizado!"));
+            } else {
+                $alunoService->add($aluno);
+                echo json_encode(array("message" => "Cadastrado!"));
+            }
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode(array("error" => $e->getMessage()));
@@ -45,16 +48,42 @@ class AlunoController
     function putAluno()
     {
         try {
-            echo "Update Aluno\n";
+            //file_get_contents: Pega dados do body contidos no request
+            $body = file_get_contents('php://input');
+
+            //json_deconde: converte texto(json) em objeto
+            $dadosRequest = json_decode($body);
+
+            $aluno = new Aluno();
+            $aluno->mount($dadosRequest);
+
+            //Valida o aluno no sistema
+            $aluno->valid();
+
+            $alunoService = new AlunoService();
+            $alunoService->update($aluno);
+            echo json_encode(array("message" => "Atualizado!"));
         } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(array("error" => $e->getMessage()));
         }
     }
 
     function deleteAluno()
     {
         try {
-            echo "Delete Aluno\n";
+            $body = file_get_contents('php://input');
+            $dadosRequest = json_decode($body);
+            if (!$dadosRequest->matricula) {
+                throw new Exception("Erros ao buscar parâmetros para remover!");
+            }
+
+            $alunoService = new AlunoService();
+            $alunoService->delete($dadosRequest->matricula);
+            echo json_encode(array("message" => "Dados removidos!"));
         } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(array("error" => $e->getMessage()));
         }
     }
 }
