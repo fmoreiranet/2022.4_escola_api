@@ -6,13 +6,14 @@ class AlunoService
     function add(Aluno $aluno)
     {
         try {
-            $sql = "INSERT INTO aluno (nome, email, senha) VALUES (:nome, :email, :senha)";
+            $sql = "INSERT INTO aluno (nome, email, senha, data_nasc) VALUES (:nome, :email, MD5(:senha), :data_nasc)";
             $dao = new DAO;
             $conn = $dao->connect();
             $stman = $conn->prepare($sql); //Iniciar o preparativo para o envio dos dados ao banco;
             $stman->bindParam(":nome", $aluno->nome); //Troca dos paramentos
             $stman->bindParam(":email", $aluno->email);
             $stman->bindParam(":senha", $aluno->senha);
+            $stman->bindParam(":data_nasc", $aluno->data_nasc);
             $stman->execute(); //Gravar os dados no banco de dados
         } catch (Exception $e) {
             throw new Exception("Erro ao cadastrar!" . $e->getMessage());

@@ -20,7 +20,7 @@ class AlunoController
             $aluno->valid();
 
             $alunoService = new AlunoService();
-            if ($aluno->matricula !== null || $aluno->matricula != "") {
+            if ($aluno->matricula != null && $aluno->matricula != "" && $aluno->matricula != 0) {
                 $alunoService->update($aluno);
                 echo json_encode(array("message" => "Atualizado!"));
             } else {
