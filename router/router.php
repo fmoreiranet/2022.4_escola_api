@@ -10,10 +10,13 @@ function router($method, $endpoint, $callback)
         $method_request = strtolower($server["REQUEST_METHOD"]);
         $validMethod = $method_request == strtolower($method);
 
-        //$list_uri_request = explode("/", strtolower(htmlspecialchars($server["REQUEST_URI"])));
+        $list_uri_request = explode("/", strtolower(htmlspecialchars($server["REQUEST_URI"])));
         //$list_endpoints = explode("/", strtolower(htmlspecialchars($endpoint)));
-
         $validURI = str_ends_with($server["REQUEST_URI"], $endpoint);
+
+        // for ($i=0; $i < sizeof($list_uri_request) ; $i++) { 
+        //     $list_uri_request[$i] == $endpoint;
+        // }
 
         //Ternário: seria um "IF" sem a palavra "IF".Sintaxe: <condicional> ? <true> : <false>
         return ($validMethod && $validURI) ? $callback() : false;

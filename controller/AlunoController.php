@@ -36,9 +36,15 @@ class AlunoController
     function getAluno()
     {
         try {
+            $body = file_get_contents('php://input');
+            $dadosRequest = json_decode($body);
             $alunoService = new AlunoService();
-            $result = $alunoService->getAll();
-            echo json_encode(array("message" => "lista dados", "dados" => $result));
+            if (isset($dadosRequest->matricula)) {
+                $result = $alunoService->get($dadosRequest->matricula);
+            } else {
+                $result = $alunoService->getAll();
+            }
+            echo json_encode(array("message" => "resultado da busca de dados", "dados" => $result));
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode(array("error" => $e->getMessage()));

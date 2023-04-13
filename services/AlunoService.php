@@ -35,6 +35,22 @@ class AlunoService
         }
     }
 
+    function get(int $matricula)
+    {
+        try {
+            $sql = "SELECT matricula, nome, email, data_nasc FROM aluno WHERE ativo = true AND matricula = :matricula";
+            $dao = new DAO;
+            $conn = $dao->connect();
+            $stman = $conn->prepare($sql);
+            $stman->bindParam(":matricula", $matricula);
+            $stman->execute();
+            $result = $stman->fetchAll();
+            return $result;
+        } catch (Exception $e) {
+            throw new Exception("Erro ao listar os dados!" . $e->getMessage());
+        }
+    }
+
     function update(Aluno $aluno)
     {
         try {
