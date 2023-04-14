@@ -14,7 +14,7 @@ router("get", "aluno", function () {
 
 router("put", "aluno", function () {
     $alunoController = new AlunoController();
-    $alunoController->putAluno();
+    $alunoController->getAluno();
 });
 
 router("delete", "aluno", function () {
