@@ -92,4 +92,21 @@ class AlunoController
             echo json_encode(array("error" => $e->getMessage()));
         }
     }
+
+    function loginAluno()
+    {
+        try {
+            $body = file_get_contents('php://input');
+            $dadosRequest = json_decode($body);
+            if (!$dadosRequest->email || !$dadosRequest->senha) {
+                throw new Exception("Erros ao buscar parâmetros!");
+            }
+            $alunoService = new AlunoService();
+            $result = $alunoService->login($dadosRequest->email, $dadosRequest->senha);
+            echo json_encode(array("message" => "resultado ao entrar", "dados" => $result));
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(array("error" => $e->getMessage()));
+        }
+    }
 }

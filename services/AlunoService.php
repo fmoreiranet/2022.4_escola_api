@@ -83,4 +83,24 @@ class AlunoService
             throw new Exception("Erro no servidor!" . $e->getMessage());
         }
     }
+
+
+    function login(string $email, string $senha)
+    {
+        try {
+            $sql = "SELECT matricula, nome, email, data_nasc FROM aluno WHERE ativo = true AND email = :email AND senha = MD5(:senha)";
+            $dao = new DAO;
+            $conn = $dao->connect();
+            $stman = $conn->prepare($sql);
+            $stman->bindParam(":email", $email);
+            $stman->bindParam(":senha", $senha);
+            $stman->execute();
+            $result = $stman->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao remover os dados!" . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception("Erro no servidor!" . $e->getMessage());
+        }
+    }
 }

@@ -6,6 +6,10 @@ router("post", "aluno", function () {
     $alunoController = new AlunoController();
     $alunoController->postAluno();
 });
+router("post", "aluno/login", function () {
+    $alunoController = new AlunoController();
+    $alunoController->loginAluno();
+});
 
 router("get", "aluno", function () {
     $alunoController = new AlunoController();
