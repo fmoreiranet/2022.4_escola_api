@@ -1,6 +1,7 @@
 <?php
 include_once("services/AlunoService.php");
 include_once("model/Aluno.php");
+include_once("services/jwt.php");
 
 class AlunoController
 {
@@ -103,7 +104,11 @@ class AlunoController
             }
             $alunoService = new AlunoService();
             $result = $alunoService->login($dadosRequest->email, $dadosRequest->senha);
-            echo json_encode(array("message" => "resultado ao entrar", "dados" => $result));
+            if (sizeof($result) == 0) throw new Exception("Erros ao buscar parâmetros!");
+            $token = generateJWT($result[0]);
+            session_start();
+            $_SESSION[$token] = $result[0];
+            echo json_encode(array("message" => "resultado ao entrar", "dados" => $result, "token" => $token));
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode(array("error" => $e->getMessage()));
