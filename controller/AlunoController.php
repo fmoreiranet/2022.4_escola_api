@@ -106,7 +106,7 @@ class AlunoController
             $result = $alunoService->login($dadosRequest->email, $dadosRequest->senha);
             if (sizeof($result) == 0) throw new Exception("Erros ao buscar parâmetros!");
             $token = generateJWT($result[0]);
-            session_start();
+            //session_start();
             $_SESSION[$token] = $result[0];
             echo json_encode(array("message" => "resultado ao entrar", "dados" => $result, "token" => $token));
         } catch (Exception $e) {

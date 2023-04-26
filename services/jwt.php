@@ -19,6 +19,8 @@ function generateJWT($dados)
         'email' => $dados->email,
         'name' => $dados->nome,
         'ultimo_login' => (new DateTime("now"))->getTimestamp(),
+        // 'isAdmin' => isset($dados->cargo) && $dados->cargo == "Admin",
+        // 'isMestre' => isset($dados->cargo) && $dados->cargo == "Professor",
     ];
 
     //JSON
