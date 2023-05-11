@@ -30,10 +30,10 @@ function isAuth()
         if (validJWT($token)) {
             $token =  str_replace(["Bearer", " "], "", $token);
             $user = $_SESSION[$token];
-            if (isset($user->cargo) && $user->cargo == "Admin") {
+            if (isset($user)) {
                 return $user;
             }
-            // if (isset($user)) {
+            // if (isset($user->cargo) && $user->cargo == "Admin") {
             //     return $user;
             // }
         }
